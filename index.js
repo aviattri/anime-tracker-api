@@ -1,4 +1,4 @@
-const http = require('http')
+const express = require('express')
 
 let shows = [
   {
@@ -59,12 +59,19 @@ let shows = [
     releaseStatus: 'NOT_YET_RELEASED',
   },
 ]
+ 
+let app = express()
 
-const app = http.createServer((request, response)=>{
-    response.writeHead(200, {'Content-Type': 'application/json'})
-    response.end(JSON.stringify(shows))
+app.get('/', (request,response)=>{
+    response.send('<h1>Hey testing!</h1>')
 })
 
-const PORT = 3001 
-app.listen(PORT)
-console.log(`Server is runnning at Port ${PORT}`)
+app.get('/api/shows/', (request,response)=>{
+    response.json(shows)
+})
+
+const PORT = 3001
+
+app.listen(PORT,()=>{
+    console.log(`listening at Port ${PORT}`)
+})
