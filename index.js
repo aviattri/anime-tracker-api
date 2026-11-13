@@ -70,6 +70,18 @@ app.get('/api/shows/', (request,response)=>{
     response.json(shows)
 })
 
+//route for fetiching a single show
+app.get('/api/shows/:id',(request, response)=>{
+    const id = request.params.id 
+    const show = shows.find(show=> show?.id === id)
+
+    if(show){
+         response.json(show)
+    }else{
+        response.status(404).end()
+    }
+})
+
 const PORT = 3001
 
 app.listen(PORT,()=>{
