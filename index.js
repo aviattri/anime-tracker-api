@@ -73,7 +73,7 @@ app.get('/api/shows/', (request,response)=>{
 //route for fetiching a single show
 app.get('/api/shows/:id',(request, response)=>{
     const id = request.params.id 
-    const show = shows.find(show=> show?.id === id)
+    const show = shows.find(show=> show.id === id)
 
     if(show){
          response.json(show)
@@ -81,6 +81,14 @@ app.get('/api/shows/:id',(request, response)=>{
         response.status(404).end()
     }
 })
+
+//route for deleting a single show
+app.delete('/api/shows/:id', (request, response)=>{
+    const id = request.params.id
+    shows = shows.filter(show => show.id !== id)
+
+    response.status(204).end()
+}) 
 
 const PORT = 3001
 
